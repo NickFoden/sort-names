@@ -3,27 +3,28 @@ const fileName = './assets/unsorted-names-list.txt'
 var fs = require('fs')
 
 // Read in file of unsorted names
-async function readFile() {
+exports.readFile = async () => {
+  console.log("hello")
   try {
     const data = await readFile(fileName, { encoding: 'utf-8' });
     let raw = data.split(/\r?\n/)
-    formatNames(raw)
+    this.formatNames(raw)
   } catch (err) {
     console.error(err);
   }
 }
 
-function formatNames(raw) {
-  let sortedBySurname = raw.sort(sortByLastName)
-  displayNames(sortedBySurname)
-  printNames(sortedBySurname)
+exports.formatNames = (raw) => {
+  let sortedBySurname = raw.sort(this.sortByLastName)
+  this.displayNames(sortedBySurname)
+  this.printNames(sortedBySurname)
 }
 
 //If the result is negative, a is sorted before b.
 // If the result is positive, b is sorted before a.
 // If the result is 0, nothing changes.
 // lastname > first name > second name > third names
-function sortByLastName(a, b) {
+exports.sortByLastName = (a, b) => {
   try {
     let splitNameA = a.trim().split(" ")
     let splitNameB = b.trim().split(" ")
@@ -54,7 +55,7 @@ function sortBySecondName(array) { }
 function sortbyThirdName(array) { }
 
 // Save each name onto a line in the text file
-function printNames(namesArray) {
+exports.printNames = (namesArray) => {
   let file = fs.createWriteStream('sorted-names-list.txt');
   try {
     namesArray.forEach(name => {
@@ -67,11 +68,9 @@ function printNames(namesArray) {
 }
 
 // display names on terminal
-function displayNames(namesArray) {
+exports.displayNames = (namesArray) => {
   namesArray.forEach(name => {
     console.log(name)
   })
 }
 
-// entry point
-readFile()

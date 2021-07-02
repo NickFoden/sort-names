@@ -33,6 +33,10 @@ Frankie Conner Ritter
 Shelby Nathan Yoder
 ```
 
+### How to run program
+
+1. `npm install`
+2. `node app.js`
 
 ### Extensible features
 * Ability to run the script using the name of the file and a relative path to the unsorted-names-list.txt
