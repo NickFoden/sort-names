@@ -27,27 +27,81 @@ describe('sortNames', function () {
       // testing it to be an array as it is passed to the next method, formatNames
       expect(readFileResult).to.be.an('array')
     })
+
+    it("should print the names and display the names if there is only one name in the file", () => {
+      // Given text file is read in
+      // When there is only one name
+      // Then name should be printed and displayed
+    })
+
+    it("should quit program if there are no names", () => {
+      // Given text file is read in
+      // When there is nothing in the file
+      // Then the program should quit
+    })
+
+    it("should quit program if there are numbers or objects in the file", () => {
+      // Given text file is read in
+      // When there are numbers and objects in the file
+      // Then the program should quit
+    })
   })
 
   // unit tests for formatNames function
   describe('formatNames()', () => {
+    it('should receive an array', () => {
+      // input should be an array
+      // // should I test for this ?
+    })
     it('should return two strings', () => {
-      expect(formatNamesResult).to.be.an('array')
-      expect(formatNamesResult).should.have.lengthOf(2)
-     })
+      // Given it receives an array
+      // When array has length more than 1 (which is always)
+      // Then two string names should be the output
+    })
   })
 
   describe('sortByLastName()', () => {
-    it('should not have non-alphabetical characters as the first character of the surname', () => { })
-    it('should return 1 when lastNameA is lower in order than lastNameB', () => { })
-    it('should return -1 when lastNameA is higher in order than lastNameB', () => { })
-    it('should return 0 when lastNameA is the same letter as lastNameB and no change to position ', () => { })
+    it('should skip current name if it has a non-alphabetical first character', () => {
+      // Given it receives name a name of "John 4Smith" and name of "Mary Chan"
+      // "John 4Smith" should not be included in the final list
+      // "Mary Chan" will compare with the next name
+    })
+
+    it('should return 1 when fullNameA is "John Smith" and fullNameB is "Mary Chan"', () => {
+      // Given fullNameA is "John Smith" and fullNameB is "Mary Chan"
+      // Then 1 should be returned
+    })
+
+    it('should return -1 when lastNameA is higher in order than lastNameB', () => {
+      // Given fullNameA is "Mary Chan" and fullNameB is "John Smith"
+      // Then -1 should be returned
+    })
+
+    it('should return 0 when lastNameA is the same letter as lastNameB and no change to position ', () => {
+      // Given fullNameA is "John Smith" and fullNameB is "Tom Smith"
+      // Then 0 should be returned
+    })
   })
 
   describe('printNames()', () => {
-    it('should receive an array', () => { })
-    it('should have strings inside the array', () => { })
-    it('should create a file called sorted-names-list.txt', () => { })
-    it('should add lines to a file called sorted-names-list.txt', () => { })
+    it('should receive an array', () => {
+      // input is expected to be an array
+      // then sorted-names-list.txt should be created
+    })
+    it('should quit if it receives a string', () => {
+      // given a single string as input
+      // nothing shoudl be done and program quits
+     })
+  })
+
+  describe('displayNames()', () => {
+    it('should receive an array', () => {
+      // Given input is expected to be an array
+      // Then array should be looped and displayed on screen
+    })
+    it('should display nothing if it receives a string', () => {
+      // Given input is a string
+      // Then nothing is displayed on screen and program quits
+    })
   })
 })

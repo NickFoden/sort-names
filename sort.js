@@ -7,11 +7,20 @@ var fs = require('fs')
  * @function
  */
 exports.readFile = async () => {
-  console.log("hello")
   try {
     const data = await readFile(fileName, { encoding: 'utf-8' });
-    let raw = data.split(/\r?\n/)
-    this.formatNames(raw)
+    let nameArray = data
+      .split(/\r?\n/)
+      .filter(item => typeof item === "string" && item !== "")
+
+    if (nameArray.length === 0) {
+      return;
+    } else if (nameArray.length === 1) {
+      this.displayNames(nameArray)
+      this.printNames(nameArray)
+    } else {
+      this.formatNames(nameArray)
+    }
   } catch (err) {
     console.error(err);
   }
@@ -21,12 +30,11 @@ exports.readFile = async () => {
  * Controller function to forward an array of names to be sorted, outputted and displayed
  * @function {array} raw
  */
-exports.formatNames = (raw) => {
-  let sortedBySurname = raw.sort(this.sortByLastName)
+exports.formatNames = (nameArray) => {
+  let sortedBySurname = nameArray.sort(this.sortByLastName)
   this.displayNames(sortedBySurname)
   this.printNames(sortedBySurname)
 }
-
 
 /**
  * Controller function to forward an array of names to be sorted, outputted and displayed
@@ -41,13 +49,13 @@ exports.sortByLastName = (fullNameA, fullNameB) => {
     let lastNameA = nameA_array.pop().trim()
     let lastNameB = nameB_array.pop().trim()
 
-    // Error-handling: if the letter is not alphabetical or empty space, then quit
+    // Error-handling: if the first letter of surname is not alphabetical or empty space, then quit
     if (lastNameA === ""
       || lastNameB === ""
-      || lastNameA.match(/[a-zA-Z]/i)
-      || lastNameB.match(/[a-zA-Z]/i))  return;
+      || (/[a-zA-Z]/).test(lastNameA[0]) !== true
+      || (/[a-zA-Z]/).test(lastNameB[0]) !== true ) return;
 
-    //If the result is negative, a is sorted before b.
+    // If the result is negative, a is sorted before b.
     // If the result is positive, b is sorted before a.
     // If the result is 0, nothing changes.
     // lastname > first name > second name > third names
