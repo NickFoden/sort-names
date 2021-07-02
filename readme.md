@@ -1,6 +1,11 @@
 ### Sort Names
 
-> The premise of this exercise is to sort a list of names from a textfile by their surname, followed by their first name, second name, third name if exists. The sorted names should display on screen and in a text file.
+> The premise of this personal exercise is to sort a list of names from a textfile by their surname, followed by their first name, second name, third name if exists. The sorted names should display on screen and in a text file.
+
+Please note certain assumptions have been made:
+
+1. all names will always have a given name and a surname (i.e. "Peekay" or "Cher" will not be checked for) and
+2. surnames don't begin with an non-alphabetical character.
 
 The input
 ```
@@ -33,11 +38,16 @@ Frankie Conner Ritter
 Shelby Nathan Yoder
 ```
 
-### How to run program
+### To run program
 
 1. `npm install`
 2. `node app.js`
 
+### To run tests
+
+1. `npm test`
+
 ### Extensible features
+
 * Ability to run the script using the name of the file and a relative path to the unsorted-names-list.txt
 * Ability to sort by given names

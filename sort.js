@@ -14,6 +14,7 @@ exports.readFile = async () => {
   }
 }
 
+
 exports.formatNames = (raw) => {
   let sortedBySurname = raw.sort(this.sortByLastName)
   this.displayNames(sortedBySurname)
@@ -73,4 +74,3 @@ exports.displayNames = (namesArray) => {
     console.log(name)
   })
 }
-
