@@ -2,7 +2,10 @@ const { readFile } = require('fs/promises');
 const fileName = './assets/unsorted-names-list.txt'
 var fs = require('fs')
 
-// Read in file of unsorted names
+/**
+ * Read in a text file
+ * @function
+ */
 exports.readFile = async () => {
   console.log("hello")
   try {
@@ -14,29 +17,40 @@ exports.readFile = async () => {
   }
 }
 
-
+/**
+ * Controller function to forward an array of names to be sorted, outputted and displayed
+ * @function {array} raw
+ */
 exports.formatNames = (raw) => {
   let sortedBySurname = raw.sort(this.sortByLastName)
   this.displayNames(sortedBySurname)
   this.printNames(sortedBySurname)
 }
 
-//If the result is negative, a is sorted before b.
-// If the result is positive, b is sorted before a.
-// If the result is 0, nothing changes.
-// lastname > first name > second name > third names
-exports.sortByLastName = (a, b) => {
+
+/**
+ * Controller function to forward an array of names to be sorted, outputted and displayed
+ * @function
+ * @param {string} fullNameA
+ * @param {string} fullNameB
+ */
+exports.sortByLastName = (fullNameA, fullNameB) => {
   try {
-    let splitNameA = a.trim().split(" ")
-    let splitNameB = b.trim().split(" ")
-    let lastNameA = splitNameA.pop()
-    let lastNameB = splitNameB.pop()
+    let nameA_array = fullNameA.trim().split(" ")
+    let nameB_array = fullNameB.trim().split(" ")
+    let lastNameA = nameA_array.pop().trim()
+    let lastNameB = nameB_array.pop().trim()
 
     // Error-handling: if the letter is not alphabetical or empty space, then quit
     if (lastNameA === ""
       || lastNameB === ""
       || lastNameA.match(/[a-zA-Z]/i)
       || lastNameB.match(/[a-zA-Z]/i))  return;
+
+    //If the result is negative, a is sorted before b.
+    // If the result is positive, b is sorted before a.
+    // If the result is 0, nothing changes.
+    // lastname > first name > second name > third names
 
     if (lastNameA < lastNameB) {
       return -1
@@ -55,7 +69,11 @@ function sortByFirstName(array) { }
 function sortBySecondName(array) { }
 function sortbyThirdName(array) { }
 
-// Save each name onto a line in the text file
+/**
+ * Save each name onto a line in the text file
+ * @function
+ * @param {array} namesArray
+ */
 exports.printNames = (namesArray) => {
   let file = fs.createWriteStream('sorted-names-list.txt');
   try {
@@ -68,7 +86,11 @@ exports.printNames = (namesArray) => {
   }
 }
 
-// display names on terminal
+/**
+ *  display names on terminal
+ * @function
+ * @param {array} namesArray
+ */
 exports.displayNames = (namesArray) => {
   namesArray.forEach(name => {
     console.log(name)
