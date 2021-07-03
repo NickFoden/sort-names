@@ -31,12 +31,27 @@ describe('sortNames', function () {
       // Given text file is read in
       // When there is nothing in the file
       // Then the program should quit
+
     })
 
     it("should quit program if there are numbers in the file", () => {
       // Given text file is read in
       // When there are numbers and objects in the file
       // Then the program should quit
+    })
+
+    context("should quit program if there is nothing in the textfile", () => {
+      before(function(done){
+         fs.readFile('../assets/empty.txt', 'utf8', function(err, fileContents) {
+            if (err) throw err;
+            testvalue = JSON.parse(fileContents);
+            done();
+         });
+
+        it("should quit program if there are no names", () => {
+          
+        })
+    });
     })
   })
 
@@ -75,7 +90,9 @@ describe('sortNames', function () {
     it('should skip current name if it has a non-alphabetical first character', () => {
       // Given it receives name a name of "John 4Smith" and name of "Mary Chan"
       // "John 4Smith" should not be included in the final list
-      // "Mary Chan" will compare with the next name
+      // then nothing will be returned, program quits
+      const testResult = sortByLastName("7om Smith", "Mary Chan")
+      expect(testResult).to.be.null;
     })
 
     it('should return 1 when fullNameA is "John Smith" and fullNameB is "Mary Chan"', () => {
@@ -137,14 +154,14 @@ describe('sortNames', function () {
     })
   })
 
-  describe('displayNames()', () => {
-    it('should receive an array', () => {
-      // Given input is expected to be an array
-      // Then array should be looped and displayed on screen
-    })
-    it('should display nothing if it receives a string', () => {
-      // Given input is a string
-      // Then nothing is displayed on screen and program quits
-    })
-  })
+  // describe('displayNames()', () => {
+  //   it('should receive an array', () => {
+  //     // Given input is expected to be an array
+  //     // Then array should be looped and displayed on screen
+  //   })
+  //   it('should display nothing if it receives a string', () => {
+  //     // Given input is a string
+  //     // Then nothing is displayed on screen and program quits
+  //   })
+  // })
 })
