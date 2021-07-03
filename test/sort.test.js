@@ -11,6 +11,7 @@ var printNames = require('../sort.js').printNames
 var displayNames = require('../sort.js').displayNames
 
 const incomingFile = './assets/unsorted-names-list.txt'
+const emptyFile = './assets/empty.txt'
 
 describe('sortNames', function () {
   describe('readFile()', () => {
@@ -18,7 +19,7 @@ describe('sortNames', function () {
     it('should have a txtfile with .txt file extension', () => {
       expect(fs.existsSync(incomingFile)).to.be.true
     })
-    
+
     it('should contain a string', () => {
       expect(fs.readFileSync(incomingFile)).to.not.be.null
     })
@@ -26,29 +27,22 @@ describe('sortNames', function () {
     //   expect(fs.readFileSync(fileName)).to.contain.a('string')
     // })
 
-    it("should quit program if there are no names", () => {
-      // Given text file is read in
-      // When there is nothing in the file
-      // Then the program should quit
-
-    })
-
-    it("should quit program if there are numbers in the file", () => {
-      // Given text file is read in
-      // When there are numbers and objects in the file
-      // Then the program should quit
-    })
-
-    context("should quit program if there is nothing in the textfile", () => {
+    context("should stop program if there is nothing in the textfile", () => {
+      // Given an empty file is
+      // When it is read in
+      // It does not call the next function formatNamesand there is no output
       before(function(done){
-         fs.readFile('../assets/empty.txt', 'utf8', function(err, fileContents) {
+         fs.readFile(emptyFile, 'utf8', function(err, fileContents) {
             if (err) throw err;
             testvalue = JSON.parse(fileContents);
             done();
          });
 
-        it("should quit program if there are no names", () => {
+        it("should quit program if file is empty", () => {
+          let spy = sinon.spy(formatNames)
+          expect(spy.calledOnce).to.be.false
 
+          expect(fs.existsSync('sorted-names-list.txt')).to.be.false
         })
     });
     })
@@ -129,11 +123,12 @@ describe('sortNames', function () {
 
     it('should quit if it receives a string', () => {
       // given a single string as input
-      // nothing shoudl be done and program quits
+      // nothing should be done and program quits
       const test = printNames("Mary Chan")
       expect(fs.existsSync('sorted-names-list.txt')).to.be.false
     })
 
+    // Have chosen to delete this as it does not work
     afterEach(() => {
 
       // delete sorted-names-list.txt
@@ -142,11 +137,8 @@ describe('sortNames', function () {
       //   fs.writeFile('/sorted-names-list.txt', "!", function (err) {
       //       if (err) console.log(err);
       //       fs.readdir(proess.cwd(), function(err, list) {
-      //           // console.log(list)
       //           assert.isTrue(list.indexOf('/sorted-names-list.txt') > -1)
       //           fs.unlinkSync(newFile);
-      //           console.log('successfully deleted '+ '/sorted-names-list.txt');
-      //           // console.log("Deleted: "+newFile)
       //           fs.readdir(process.cwd(), function(err, list) {
       //               if (err) throw err;
       //               assert.isTrue(list.indexOf(newFile) === -1);
@@ -154,7 +146,6 @@ describe('sortNames', function () {
       //           });
       //       });
       //   });
-
       // })
     })
   })
