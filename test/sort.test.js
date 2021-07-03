@@ -3,12 +3,12 @@ var expect = require('chai').expect;
 var should = require('chai').should;
 var sortName = require('../sort.js')
 var fs = require('fs')
-
+var sinon = require('sinon');
 var readFile = require('../sort.js').readFile
-var readFileResult = require('../sort.js').readFile
-var formatNamesResult = require('../sort.js').formatNames
-var sortByLastNameResult = require('../sort.js').sortByLastName
-var printNamesResult = require('../sort.js').printNames
+var formatNames = require('../sort.js').formatNames
+var sortByLastName = require('../sort.js').sortByLastName
+var printNames = require('../sort.js').printNames
+var displayNames = require('../sort.js').displayNames
 
 const fileName = './assets/unsorted-names-list.txt'
 
@@ -27,12 +27,6 @@ describe('sortNames', function () {
     //   expect(fs.readFileSync(fileName)).to.contain.a('string')
     // })
 
-    it("should print the names and display the names if there is only one name in the file", () => {
-      // Given text file is read in
-      // When there is only one name
-      // Then name should be printed and displayed
-    })
-
     it("should quit program if there are no names", () => {
       // Given text file is read in
       // When there is nothing in the file
@@ -48,16 +42,32 @@ describe('sortNames', function () {
 
   // unit tests for formatNames function
   describe('formatNames()', () => {
-    it('should receive an array', () => {
-      // input should be an array
-      // // should I test for this ?
-    })
     it('should call displayNames & printName if an array is provided', () => {
       // Given it receives an array
       // When array has length more than 1 (which is always)
-      // Then two string names should be the output
-      const testResult = require('../sort.js').formatNames(["John Smith", "Mary Smith"])
-      
+      // Then displayNames and printNames should be called
+      const testResult = formatNames(["John Smith", "Mary Smith"])
+      let spy = sinon.spy(displayNames)
+      let spy2 = sinon.spy(printNames)
+      expect(spy.calledOnce).to.be.true
+      expect(spy2.calledOnce).to.be.true
+    })
+
+    it("should print and display name if there is only one name passed", () => {
+      // Given text file is read in
+      // When there is only one name
+      // Then name should be printed and displayed
+      const testResult = formatNames(["John Smith"])
+      expect(fs.existsSync('/sorted-names-list.txt')).to.be.true
+      expect(fs.readFileSync('/sorted-names-list.txt')).to.equal('John Smith')
+    })
+
+    it("it should not print and display name if there is only no name passed", () => {
+      // Given text file is read in
+      // When there is only one name
+      // Then name should be printed and displayed
+      const testResult = formatNames([])
+      expect(fs.existsSync('/sorted-names-list.txt')).to.be.false
     })
   })
 
@@ -91,14 +101,40 @@ describe('sortNames', function () {
   })
 
   describe('printNames()', () => {
-    it('should receive an array', () => {
+    it('should output a file if it receives an array', () => {
       // input is expected to be an array
       // then sorted-names-list.txt should be created
+      const test = printNames(["Mary Chan", "John Smith "])
+      expect(fs.existsSync('sorted-names-list.txt')).to.be.true
     })
+
     it('should quit if it receives a string', () => {
       // given a single string as input
       // nothing shoudl be done and program quits
-     })
+      const test = printNames("Mary Chan")
+      expect(fs.existsSync('sorted-names-list.txt')).to.be.false
+    })
+
+    afterEach(() => {
+      // it("deletes file", (done) => {
+      //   fs.writeFile('/sorted-names-list.txt', "!", function (err) {
+      //       if (err) console.log(err);
+      //       fs.readdir(proess.cwd(), function(err, list) {
+      //           // console.log(list)
+      //           assert.isTrue(list.indexOf('/sorted-names-list.txt') > -1)
+      //           fs.unlinkSync(newFile);
+      //           console.log('successfully deleted '+ '/sorted-names-list.txt');
+      //           // console.log("Deleted: "+newFile)
+      //           fs.readdir(process.cwd(), function(err, list) {
+      //               if (err) throw err;
+      //               assert.isTrue(list.indexOf(newFile) === -1);
+      //               done()
+      //           });
+      //       });
+      //   });
+
+      // })
+    })
   })
 
   describe('displayNames()', () => {

@@ -30,10 +30,12 @@ exports.readFile = async () => {
  * Controller function to forward an array of names to be sorted, outputted and displayed
  * @function {array} raw
  */
-exports.formatNames = (nameArray) => {
-  let sortedBySurname = nameArray.sort(this.sortByLastName)
-  this.displayNames(sortedBySurname)
-  this.printNames(sortedBySurname)
+exports.formatNames = (namesArray) => {
+  if (namesArray.length) {
+      let sortedBySurname = namesArray.sort(this.sortByLastName)
+      this.displayNames(sortedBySurname)
+      this.printNames(sortedBySurname)
+    }
 }
 
 /**
