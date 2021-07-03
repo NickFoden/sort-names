@@ -10,18 +10,17 @@ var sortByLastName = require('../sort.js').sortByLastName
 var printNames = require('../sort.js').printNames
 var displayNames = require('../sort.js').displayNames
 
-const fileName = './assets/unsorted-names-list.txt'
+const incomingFile = './assets/unsorted-names-list.txt'
 
 describe('sortNames', function () {
   describe('readFile()', () => {
 
-
-
     it('should have a txtfile with .txt file extension', () => {
-      expect(fs.existsSync(fileName)).to.be.true
+      expect(fs.existsSync(incomingFile)).to.be.true
     })
+    
     it('should contain a string', () => {
-      expect(fs.readFileSync(fileName)).to.not.be.null
+      expect(fs.readFileSync(incomingFile)).to.not.be.null
     })
     // it('should have list of names separated by line break', () => {
     //   expect(fs.readFileSync(fileName)).to.contain.a('string')
@@ -49,7 +48,7 @@ describe('sortNames', function () {
          });
 
         it("should quit program if there are no names", () => {
-          
+
         })
     });
     })
@@ -87,6 +86,8 @@ describe('sortNames', function () {
   })
 
   describe('sortByLastName()', () => {
+
+    // this test should never be needed because the data is sanitised much earlier
     it('should skip current name if it has a non-alphabetical first character', () => {
       // Given it receives name a name of "John 4Smith" and name of "Mary Chan"
       // "John 4Smith" should not be included in the final list
@@ -95,21 +96,21 @@ describe('sortNames', function () {
       expect(testResult).to.be.null;
     })
 
-    it('should return 1 when fullNameA is "John Smith" and fullNameB is "Mary Chan"', () => {
+    it('should return 1 when the first name is alphabetically lower than the second name in this specific order', () => {
       // Given fullNameA is "John Smith" and fullNameB is "Mary Chan"
       // Then 1 should be returned
       const testResult = require('../sort.js').sortByLastName("John Smith", "Mary Chan")
       expect(testResult).to.equal(1)
     })
 
-    it('should return -1 when fullNameA is "Mary Chan" and fullNameB is "John Smith"', () => {
+    it('should return -1 when first name is alphabetically higher than the second name in this specific order', () => {
       // Given fullNameA is "Mary Chan" and fullNameB is "John Smith"
       // Then -1 should be returned
       const testResult = require('../sort.js').sortByLastName("Mary Chan", "John Smith")
       expect(testResult).to.equal(-1)
     })
 
-    it('should return 0 when lastNameA is the same letter as lastNameB and no change to position ', () => {
+    it('should return 0 when both names start with the same letter ', () => {
       // Given fullNameA is "John Smith" and fullNameB is "Tom Smith"
       // Then 0 should be returned
       const testResult = require('../sort.js').sortByLastName("John Smith", "Tom Smith")
@@ -123,6 +124,7 @@ describe('sortNames', function () {
       // then sorted-names-list.txt should be created
       const test = printNames(["Mary Chan", "John Smith "])
       expect(fs.existsSync('sorted-names-list.txt')).to.be.true
+      // expect(fs.readFileSync('sorted-names-list.txt')).to.equal('Mary Chan John Smith")
     })
 
     it('should quit if it receives a string', () => {
@@ -133,6 +135,9 @@ describe('sortNames', function () {
     })
 
     afterEach(() => {
+
+      // delete sorted-names-list.txt
+
       // it("deletes file", (done) => {
       //   fs.writeFile('/sorted-names-list.txt', "!", function (err) {
       //       if (err) console.log(err);
