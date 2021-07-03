@@ -65,6 +65,7 @@ exports.sortByLastName = (fullNameA, fullNameB) => {
     } else if (lastNameA > lastNameB) {
       return 1
     } else {
+      // sortByFirstGivenName()
       return 0
     }
   } catch (err) {

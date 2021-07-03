@@ -51,3 +51,4 @@ Shelby Nathan Yoder
 
 * Ability to run the script using the name of the file and a relative path to the unsorted-names-list.txt
 * Ability to sort by given names
+* Made more efficient if the list of names is very long

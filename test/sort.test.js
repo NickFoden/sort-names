@@ -14,19 +14,18 @@ const fileName = './assets/unsorted-names-list.txt'
 
 describe('sortNames', function () {
   describe('readFile()', () => {
+
+
+
     it('should have a txtfile with .txt file extension', () => {
       expect(fs.existsSync(fileName)).to.be.true
     })
     it('should contain a string', () => {
       expect(fs.readFileSync(fileName)).to.not.be.null
     })
-    it('should have list of names separated by line break', () => {
-      expect(fs.readFileSync(fileName)).to.contain.a('string')
-    })
-    it('should return an array', () => {
-      // testing it to be an array as it is passed to the next method, formatNames
-      expect(readFileResult).to.be.an('array')
-    })
+    // it('should have list of names separated by line break', () => {
+    //   expect(fs.readFileSync(fileName)).to.contain.a('string')
+    // })
 
     it("should print the names and display the names if there is only one name in the file", () => {
       // Given text file is read in
@@ -40,7 +39,7 @@ describe('sortNames', function () {
       // Then the program should quit
     })
 
-    it("should quit program if there are numbers or objects in the file", () => {
+    it("should quit program if there are numbers in the file", () => {
       // Given text file is read in
       // When there are numbers and objects in the file
       // Then the program should quit
@@ -53,10 +52,12 @@ describe('sortNames', function () {
       // input should be an array
       // // should I test for this ?
     })
-    it('should return two strings', () => {
+    it('should call displayNames & printName if an array is provided', () => {
       // Given it receives an array
       // When array has length more than 1 (which is always)
       // Then two string names should be the output
+      const testResult = require('../sort.js').formatNames(["John Smith", "Mary Smith"])
+      
     })
   })
 
@@ -70,16 +71,22 @@ describe('sortNames', function () {
     it('should return 1 when fullNameA is "John Smith" and fullNameB is "Mary Chan"', () => {
       // Given fullNameA is "John Smith" and fullNameB is "Mary Chan"
       // Then 1 should be returned
+      const testResult = require('../sort.js').sortByLastName("John Smith", "Mary Chan")
+      expect(testResult).to.equal(1)
     })
 
-    it('should return -1 when lastNameA is higher in order than lastNameB', () => {
+    it('should return -1 when fullNameA is "Mary Chan" and fullNameB is "John Smith"', () => {
       // Given fullNameA is "Mary Chan" and fullNameB is "John Smith"
       // Then -1 should be returned
+      const testResult = require('../sort.js').sortByLastName("Mary Chan", "John Smith")
+      expect(testResult).to.equal(-1)
     })
 
     it('should return 0 when lastNameA is the same letter as lastNameB and no change to position ', () => {
       // Given fullNameA is "John Smith" and fullNameB is "Tom Smith"
       // Then 0 should be returned
+      const testResult = require('../sort.js').sortByLastName("John Smith", "Tom Smith")
+      expect(testResult).to.equal(0)
     })
   })
 
