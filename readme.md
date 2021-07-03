@@ -53,3 +53,14 @@ Shelby Nathan Yoder
 * Ability to sort by given names
 * Made more efficient if the list of names is very long
 * could use modular javascript instead
+
+### Persistent issues
+
+* unable to use `sinon` to effectively watch for function calls. Attempted to resolve this issue by changing the structure of sort.js into modular javascript but did not work. The syntax for sinon.spy requires an object and a method name.
+
+* Unsure how to use bad-names.txt test case to write test where there are two names nad one number in the textfile input. How can you check for whether namesArray has a length of 2 specifically.
+
+### Helpful resources
+
+https://stackoverflow.com/questions/29800733/verifying-function-call-and-inspecting-arguments-using-sinon-spies
+https://stackoverflow.com/questions/20584233/mocha-pass-variable-to-the-next-test

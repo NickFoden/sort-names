@@ -54,8 +54,8 @@ exports.sortByLastName = (fullNameA, fullNameB) => {
     // Error-handling: if the first letter of surname is not alphabetical or empty space, then quit
     if (lastNameA === ""
       || lastNameB === ""
-      || (/[a-zA-Z]/).test(lastNameA[0]) !== true
-      || (/[a-zA-Z]/).test(lastNameB[0]) !== true ) return;
+      || (/[a-zA-Z]/).test(lastNameA.charAt(0)) !== true
+      || (/[a-zA-Z]/).test(lastNameB.charAt(0)) !== true ) return;
 
     // If the result is negative, a is sorted before b.
     // If the result is positive, b is sorted before a.
@@ -67,7 +67,7 @@ exports.sortByLastName = (fullNameA, fullNameB) => {
     } else if (lastNameA > lastNameB) {
       return 1
     } else {
-      // sortByFirstGivenName()
+      // sortByFirstGivenName(fullNameA, fullNameB)
       return 0
     }
   } catch (err) {
@@ -76,9 +76,9 @@ exports.sortByLastName = (fullNameA, fullNameB) => {
   }
 }
 
-function sortByFirstName(array) { }
-function sortBySecondName(array) { }
-function sortbyThirdName(array) { }
+function sortByFirstName(fullNameA, fullNameB) {}
+function sortBySecondName(fullNameA, fullNameB) { }
+function sortbyThirdName(fullNameA, fullNameB) { }
 
 /**
  * Save each name onto a line in the text file
@@ -88,7 +88,7 @@ function sortbyThirdName(array) { }
 exports.printNames = (namesArray) => {
   let file = fs.createWriteStream('sorted-names-list.txt');
   try {
-    namesArray.forEach(name => {
+    [...namesArray].forEach(name => {
       file.write(name + '\n')
     })
     file.end
@@ -103,7 +103,7 @@ exports.printNames = (namesArray) => {
  * @param {array} namesArray
  */
 exports.displayNames = (namesArray) => {
-  namesArray.forEach(name => {
+  [...namesArray].forEach(name => {
     console.log(name)
   })
 }
