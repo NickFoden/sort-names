@@ -1,4 +1,3 @@
-const fs = require("fs");
 const nameSort = require("../sort.js");
 
 const unsortedNames = "./assets/unsorted-names-list.txt";
@@ -10,7 +9,7 @@ const wrongFileType = "./assets/wrong-type.md";
 describe("sortNames", () => {
   describe("readFile()", () => {
     it("Should return empty string if file is empty", async () => {
-      const data = await nameSort.processFile(emptyFile, { encoding: "utf-8" });
+      const data = await nameSort.processFile(emptyFile);
       expect(data).toBe("");
     });
 
@@ -20,9 +19,7 @@ describe("sortNames", () => {
     });
 
     it("Should contain a string", async () => {
-      const data = await nameSort.processFile(unsortedNames, {
-        encoding: "utf-8",
-      });
+      const data = await nameSort.processFile(unsortedNames);
       expect(typeof data).toBe("string");
     });
 
@@ -59,6 +56,30 @@ describe("sortNames", () => {
       ]);
     });
   });
+
+
+  describe("empty tests", () => {
+    it("empty 1", async () => {
+      const myFunction = (X) => {
+        return typeof X === "string"
+      }
+      const inputs = ["stuff", 6, "junk" ]
+      const expected = [true, false, true]
+
+      for(let i =0; i < inputs.length; i++){
+        const result = myFunction(inputs[i])
+        expect(result).toBe(expected[i])
+      }
+      // const result = myFunction("stuff")
+
+      // const expected = true
+
+      // expect(result).toBe(expected)
+    })
+    xit("empty 2", async () => {
+    })
+  })
+
 });
 
 // FAIL (before hook)

@@ -3,6 +3,7 @@ const path = require('path');
 const { readFile } = require("fs/promises");
 const fileName = "./assets/unsorted-names-list.txt";
 
+
 /**
  * Read in a text file
  * @function
@@ -26,10 +27,13 @@ const processFile = async (f = fileName) => {
     if (!result || result.length === 0) {
       throw new Error("Get file contents failed");
     }
+
     if (result.length === 1) {
       return result[0];
     }
+
     return displayNames(result);
+
   } catch (err) {
     return "";
   }
